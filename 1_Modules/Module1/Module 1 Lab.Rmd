@@ -1,0 +1,245 @@
+---
+title: "DAT 500 S "
+author: "DuraiSundaramoorthi"
+output: pdf_document
+---
+
+```{r setup, include=TRUE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 2.3.1 Basic Commands
+## Basic Commands Chunk 1
+
+```{r}
+x = c(1, 3, 2, 5)
+x
+
+x = c(1, 6, 2)
+x
+
+y = c(1, 4, 3)
+y
+
+length(x)
+
+length(y)
+
+x+y
+
+ls()
+
+rm(x,y)
+
+rm(list = ls())
+
+ls()
+```
+
+
+## Basic Commands Chunk 2
+
+```{r}
+
+?matrix
+
+x = matrix(data = c(1,2,3,4), nrow = 2, ncol = 2)
+x
+
+x = matrix(c(1,2,3,4),2,2)
+x
+
+x = matrix(c(1,2,3,4),2,2,byrow = TRUE)
+x
+
+sqrt(x)
+```
+
+
+## Basic Commands Chunk 3
+
+```{r}
+
+set.seed(1)
+
+x = rnorm(50)
+
+x
+
+mean(x)
+
+sd(x)
+```
+
+
+## Basic Commands Chunk 4
+
+```{r}
+y = x + rnorm(50, mean=50,sd=0.1)
+y
+
+cor(x,y)
+
+```
+
+## Basic Commands Chunk 5
+
+```{r}
+
+set.seed(3)
+
+y = rnorm(100)
+mean(y)
+
+var(y)
+
+sqrt(var(y))
+
+sd(y)
+
+```
+
+## 2.3.2 Graphics
+## Graphics Chunk 6
+
+```{r}
+x = rnorm(100)
+y = rnorm(100)
+
+plot(x,y)
+
+plot(x,y,xlab = "label for x-axis", ylab = "label for y-axis", main = "Plot of x vs y")
+
+plot(x,y,col = "green")
+
+```
+
+## 2.3.5 Additional Graphical and Numerical Summaries
+## Graphics Chunk 7
+```{r}
+library(ISLR)
+
+# plot(cylinders, mpg)
+
+plot(Auto$cylinders, Auto$mpg)
+```
+
+## Graphics Chunk 8
+```{r}
+attach(Auto)
+
+plot(cylinders,mpg)
+
+```
+
+## Graphics Chunk 9
+```{r}
+cylinders = as.factor(cylinders)
+
+plot(cylinders,mpg)
+```
+
+
+## Graphics Chunk 10
+```{r}
+
+plot(cylinders,mpg, col = "red")
+
+plot(cylinders,mpg, col = "red", varwidth = T)
+
+plot(cylinders,mpg, col = "red", varwidth = T, horizontal = T)
+
+plot(cylinders,mpg, col = "red", varwidth = T, xlab = "Cylinders", ylab = "MPG")
+```
+
+## Graphics Chunk 11
+```{r}
+
+hist(mpg)
+
+hist(mpg,col = 2)
+
+hist(mpg,col = "red", breaks = 15)
+```
+
+## Graphics Chunk 12
+```{r}
+
+pairs(Auto)
+
+pairs(~mpg + displacement + horsepower + weight + acceleration, Auto)
+
+```
+
+## Graphics Chunk 13
+```
+
+plot(horsepower,mpg)
+
+identify(horsepower,mpg,name)
+```
+
+## Graphics Chunk 14
+```{r}
+
+summary(Auto)
+
+summary(mpg)
+```
+
+## 2.3.3 Indexing Data
+## Indexing Chunk 15
+
+```{r}
+
+A = matrix(1:16,4,4)
+A
+
+A[2,3]
+
+A[c(1,3),c(2,4)]
+
+A[1:3,2:4]
+
+A[1:2,]
+
+A[,1:2]
+
+A[1,]
+
+A[-c(1,3),]
+
+dim(A)
+
+```
+
+## 2.3.4 Loading Data
+## Loading Data Chunk 16
+
+```
+
+Auto = read.table("C:/C/DAT500S/Data/Auto.data")
+fix(Auto)
+
+Auto = read.table("C:/C/DAT500S/Data/Auto.data",header = T, na.strings = "?")
+fix(Auto)
+
+Auto = read.csv("C:/C/DAT500S/Data/Auto.csv",header = T, na.strings = "?")
+fix(Auto)
+
+```
+
+
+## Loading Data Chunk 17
+
+```{r}
+dim(Auto)
+
+Auto[1:4,]
+
+Auto = na.omit(Auto)
+dim(Auto)
+
+names(Auto)
+```
+
