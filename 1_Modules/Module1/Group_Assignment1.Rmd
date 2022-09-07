@@ -1,0 +1,95 @@
+---
+title: "Group_Assignment1"
+author: "Tim Yang"
+date: '2022-09-06'
+output: pdf_document
+---
+
+## 2.4 Exercises Problem 9.
+
+### Use R Markdown to generate a pdf file. Only one student from each group should submit the solution file. 
+
+### This exercise involves the Auto data set studied in the R Videos. Make sure that the missing values have been removed from the data.
+
+
+```{r setup, warning=FALSE}
+Auto = read.csv("/Users/hyeonwooyang/Desktop/Desktop/0_WUSTL/0_Business_Analytics/00_2022_Fall/4_DAT500S_Machine_Learning_Tools_for_Prediction_of_Business_Outcomes/2_Data/Auto.csv", header = T, na.strings = "?")
+Auto <- na.omit(Auto)
+dim(Auto)
+```
+
+
+### (a) Which of the predictors are quantitative, and which are qualitative?
+
+```{r}
+# View(Auto)
+Auto$cylinders <- factor(Auto$cylinders)
+Auto$year <- factor(Auto$year)
+Auto$origin <- factor(Auto$origin)
+
+summary(Auto)
+```
+
+- **Quantitative predictors**: mpg, cylinders, displacement, horsepower, weight, acceleration
+- **Qualitative predictors**: cylinders (factor), origin (factor), year (factor), name
+
+### (b) What is the range of each quantitative predictor? You can answer this using the range() function.
+
+```{r}
+attach(Auto)
+sapply(Auto[, -c(2, 7, 8, 9)], range)
+```
+
+### (c) What is the mean and standard deviation of each quantitative predictor?
+
+```{r}
+sapply(Auto[, -c(2, 7, 8, 9)], mean)
+sapply(Auto[, -c(2, 7, 8, 9)], sd)
+```
+
+### (d) Now remove the 10th through 85th observations. What is the range, mean, and standard deviation of each predictor in the subset of the data that remains?
+
+```{r}
+Auto_subset <- Auto[-c(10:85), ]
+dim(Auto_subset)
+```
+
+```{r}
+detach(Auto)
+attach(Auto_subset)
+sapply(Auto_subset[, -c(2, 7, 8, 9)], range)
+sapply(Auto_subset[, -c(2, 7, 8, 9)], mean)
+sapply(Auto_subset[, -c(2, 7, 8, 9)], sd)
+```
+
+
+### (e) Using the full data set, investigate the predictors graphically, using scatterplots or other tools of your choice. Create some plots highlighting the relationships among the predictors. Comment on your findings.
+
+```{r}
+detach(Auto_subset)
+attach(Auto)
+pairs(~ mpg + displacement + horsepower + weight + acceleration, data = Auto)
+```
+
+### (f) Suppose that we wish to predict gas mileage (mpg) on the basis of the other variables. Do your plots suggest that any of the other variables might be useful in predicting mpg? Justify your answer.
+
+- displacement, horsepower, and weight variables are negatively correlated with the mpg variable, as shown in the plot above
+- cylinder is negatively correlated with the mpg, while year and origin are positively correlated with the mpg, as shown in the graphs below
+
+```{r}
+boxplot(mpg ~ cylinders)
+regline <- lm(mpg ~ as.numeric(cylinders), data = Auto)
+abline(regline)
+
+boxplot(mpg ~ year)
+regline <- lm(mpg ~ as.numeric(year), data = Auto)
+abline(regline)
+
+boxplot(mpg ~ origin)
+regline <- lm(mpg ~ as.numeric(origin), data = Auto)
+abline(regline)
+```
+
+### Reference: 
+
+<https://stat.ethz.ch/pipermail/r-help/2011-April/273755.html>
